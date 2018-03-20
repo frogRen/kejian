@@ -3,11 +3,7 @@
  */
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import {
-  StyleSheet,
-  Image,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, Image, Dimensions } from 'react-native';
 
 // 主界面
 import AppMain from './App';
@@ -25,7 +21,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <Image
-        source={require('../resource/image/startpage.png')}
+        source={require('../resource/image/main_startpage.png')}
         style={styles.imageStyle}
       />
     );
@@ -43,12 +39,8 @@ const styles = StyleSheet.create({
 
 // 导航配置
 export default StackNavigator({
-  start: {
-    screen: HomeScreen,
-  },
-  home: {
-    screen: AppMain,
-  },
+  start: { screen: HomeScreen },
+  home: { screen: AppMain },
 }, {
   initialRouteName: 'start',
   headerMode: 'none',

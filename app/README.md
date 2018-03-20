@@ -8,15 +8,15 @@ app的项目代码
 
 ## home
 
- 首页
+ 首页频道(包含关注和热门)
 
-## discover
+## topic
 
- 发现
+ 发现频道(主题站)
 
-## my
+## me
 
- 我的
+ 我的频道
 
 ## resource
 
