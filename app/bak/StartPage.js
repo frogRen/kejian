@@ -1,29 +1,35 @@
 /**
  * 开屏启动页
  */
-import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Image,
   Dimensions,
 } from 'react-native';
 
-// 主界面
-import AppMain from './App';
+// 获取屏幕尺寸
+const {width, height} = Dimensions.get('window');
 
-// 启动界面
-class HomeScreen extends React.Component {
+// 主界面
+import AppMain from './Main';
+
+export default class StartPage extends Component {
+  // 组件加载完成
   componentDidMount() {
     this.timer = setTimeout(() => {
-      this.props.navigation.navigate('home')
+      this.props.navigator.resetTo({
+        component: AppMain
+      })
     }, 2000)
   }
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);
   }
+
   render() {
-    return (
+    return(
+      // 启动页
       <Image
         source={require('../resource/image/startpage.png')}
         style={styles.imageStyle}
@@ -32,24 +38,9 @@ class HomeScreen extends React.Component {
   }
 }
 
-// 屏幕尺寸大小
-const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
   imageStyle: {
     width: width,
     height: height,
   }
-});
-
-// 导航配置
-export default StackNavigator({
-  start: {
-    screen: HomeScreen,
-  },
-  home: {
-    screen: AppMain,
-  },
-}, {
-  initialRouteName: 'start',
-  headerMode: 'none',
 });
