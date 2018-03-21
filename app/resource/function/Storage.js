@@ -88,13 +88,7 @@ export default {
    *
    * @param type 需要数据的类型,string、array
    */
-  getTopic: async function (type) {
-    let key = 'main_topic';
-    let data = await this.get(key) || [];
-
-    if (type === 'string') {
-      return data.join(',');
-    }
-    return data;
+  getTopic () {
+    return this.get('main_topic');
   },
 }

@@ -12,15 +12,16 @@ class HomeScreen extends React.Component {
   componentDidMount() {
 
     // 根据是否选择主题站进行跳转
-    let name = 'home';
-    let topic = Storage.getTopic();
-    if (topic.length < 1) {
-      name = 'initTopic';
-    }
+    Storage.getTopic().then(data => {
+        let name = 'home';
+        if (data === null || data.length < 1) {
+            name = 'initTopic';
+        }
 
-    this.timer = setTimeout(() => {
-      this.props.navigation.navigate(name);
-    }, 2000)
+        this.timer = setTimeout(() => {
+            this.props.navigation.navigate(name);
+        }, 2000)
+    });
   }
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);
