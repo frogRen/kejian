@@ -71,6 +71,7 @@ export default TabNavigator({
     },
     labelStyle: {
       fontSize: 10,
+      paddingBottom: 3,
     },
   },
 });

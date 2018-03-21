@@ -4,15 +4,22 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { StyleSheet, Image, Dimensions } from 'react-native';
-
-// 主界面
+import Storage from '../resource/function/Storage';
 import AppMain from './App';
+import InitTopic from './InitTopic';
 
-// 启动界面
 class HomeScreen extends React.Component {
   componentDidMount() {
+
+    // 根据是否选择主题站进行跳转
+    let name = 'home';
+    let topic = Storage.getTopic();
+    if (topic.length < 1) {
+      name = 'initTopic';
+    }
+
     this.timer = setTimeout(() => {
-      this.props.navigation.navigate('home')
+      this.props.navigation.navigate(name);
     }, 2000)
   }
   componentWillUnmount() {
@@ -29,7 +36,7 @@ class HomeScreen extends React.Component {
 }
 
 // 屏幕尺寸大小
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   imageStyle: {
     width: width,
@@ -38,9 +45,10 @@ const styles = StyleSheet.create({
 });
 
 // 导航配置
-export default StackNavigator({
+export default StackNavigator ({
   start: { screen: HomeScreen },
   home: { screen: AppMain },
+  initTopic: { screen: InitTopic },
 }, {
   initialRouteName: 'start',
   headerMode: 'none',
