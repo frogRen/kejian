@@ -1,31 +1,32 @@
 /**
- * 开屏启动页
+ * 启动页
+ *
+ * 完成启动界面展示,根据数据选择跳转等
+ *
+ * @author renzhenguo<435328801@qq.com>
  */
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import Storage from '../resource/function/Storage';
-import AppMain from './App';
-import InitTopic from './InitTopic';
 
-class HomeScreen extends React.Component {
+export default class StartPage extends React.Component {
+
+  // 根据是否选择主题站进行跳转
   componentDidMount() {
-
-    // 根据是否选择主题站进行跳转
-    Storage.getTopic().then(data => {
-        let name = 'home';
-        if (data === null || data.length < 1) {
-            name = 'initTopic';
-        }
-
-        this.timer = setTimeout(() => {
-            this.props.navigation.navigate(name);
-        }, 2000)
+    let name = 'initTopic';
+    Storage.get('main_topic').then(data => {
+      if ((data || []).length > 1) {
+        name = 'appMain';
+      }
+      this.timer = setTimeout(() => {
+        this.props.navigation.navigate(name);
+      }, 2000)
     });
   }
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);
   }
+
   render() {
     return (
       <Image
@@ -36,21 +37,11 @@ class HomeScreen extends React.Component {
   }
 }
 
-// 屏幕尺寸大小
+// 开屏图片的尺寸
 const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   imageStyle: {
     width: width,
     height: height,
   }
-});
-
-// 导航配置
-export default StackNavigator ({
-  start: { screen: HomeScreen },
-  home: { screen: AppMain },
-  initTopic: { screen: InitTopic },
-}, {
-  initialRouteName: 'start',
-  headerMode: 'none',
 });

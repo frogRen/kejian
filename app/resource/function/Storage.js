@@ -16,9 +16,10 @@ export default {
    * @param int expires 过期时间,毫秒
    * @return Promise
    */
-  save (key, value, expires) {
+  set (key, value, expires = 0) {
 
-    if (expires !== null) {
+    // 处理数据
+    if (expires !== 0) {
       let now = new Date().getTime();
       expires = now + expires;
     }
@@ -28,9 +29,12 @@ export default {
       expires: expires,
     }
 
+    // 写入缓存
     this._cache[key] = data;
     data = JSON.stringify(data);
 
+    // 写入存储
+    key = '@Kejian:' + key;
     return AsyncStorage.setItem(key, data);
   },
 
@@ -40,55 +44,37 @@ export default {
    * @param string key 存储数据的key
    * @return Promise
    */
-  get (key) {
-    return new Promise( (resolve, reject) => {
+  get: async function (key) {
 
-      // cache
-      let value = this._cache[key];
-      if (value !== undefined) {
-        value = this._genGet(value);
-        return resolve(value);
-      }
+    // 从缓存获取
+    let value = this._cache[key];
+    if (value !== undefined) {
+      return this._genGetData(value);
+    }
 
-      // storage
-      AsyncStorage.getItem(key).then( value => {
-        if (value === null) {
-          return resolve(value);
-        }
-
-        value = JSON.parse(value);
-        value = this._genGet(value);
-        return resolve(value);
-      }).catch(reject);
-
-    });
+    // 从存储获取
+    try {
+      key = '@Kejian:' + key;
+      value = await AsyncStorage.getItem(key);
+      value = JSON.parse(value);
+      return this._genGetData(value);
+    } catch (err) {
+      return null;
+    }
   },
 
   // 处理数据
-  _genGet (value, resolve) {
+  _genGetData (value) {
     let data = value.data;
-
-    let now = new Date().getTime();
-    if (value.expires !== null && value.expires <= now) {
-      data = null;
+    if (value.expires === 0) {
+      return data;
     }
 
-    return data;
-  },
+    let now = new Date().getTime();
+    if (value.expires >= now) {
+      return data;
+    }
 
-  /**
-   * 设置本地存放的主题站
-   */
-  saveTopic (data) {
-    return this.save('main_topic', data);
-  },
-
-  /**
-   * 获取本地存放的主题站
-   *
-   * @param type 需要数据的类型,string、array
-   */
-  getTopic () {
-    return this.get('main_topic');
+    return null;
   },
 }
