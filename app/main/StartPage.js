@@ -8,19 +8,21 @@
 import React from 'react';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import Storage from '../resource/function/Storage';
+import Config from './Config';
 
 export default class StartPage extends React.Component {
 
   // 根据是否选择主题站进行跳转
   componentDidMount() {
-    Storage.get('main_topic').then(data => {
-      data = data || [];
-      let name = (data.length > 1) ? 'appMain' : 'initTopic';
+    Storage
+      .get(Config.main.stopicKey)
+      .then(data => {
+        let name = (data) ? 'appMain' : 'initTopic';
 
-      this.timer = setTimeout( () => {
-        this.props.navigation.navigate(name);
-      }, 2000)
-    });
+        this.timer = setTimeout( () => {
+          this.props.navigation.navigate(name, { stopic: data });
+        }, 2000)
+      });
   }
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);

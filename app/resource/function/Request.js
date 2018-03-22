@@ -1,13 +1,12 @@
 /**
  * 网络请求
+ *
+ * @author renzhenguo<435328801@qq.com>
  */
 import axios from 'axios';
+import Config from '../../main/Config';
 
 export default {
-
-  // 接口地址前缀
-  //_newsApi: 'http://app-news.router.test.imoxiu.cn',
-  _newsApi: 'https://news.moxiu.com',
 
   /**
    * 发送请求
@@ -20,7 +19,7 @@ export default {
   post: async function (url, data = {}, options = {}) {
 
     // 处理参数
-    options.baseURL = this._newsApi;
+    options.baseURL = Config.network.newsApi;
     options.params = this._cquery();
     options.timeout = options.timeout || 5000;
     data = this._query(data);
@@ -37,7 +36,7 @@ export default {
   get: async function (url, data = {}, options = {}) {
 
     // 处理参数
-    options.baseURL = this._newsApi;
+    options.baseURL = Config.network.newsApi;
     options.params = this._cquery(data);
     options.timeout = options.timeout || 5000;
 

@@ -5,6 +5,7 @@
  *
  * @author renzhenguo<435328801@qq.com>
  */
+import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 // 导航组件
@@ -19,4 +20,5 @@ export default StackNavigator ({
 }, {
   initialRouteName: 'startPage',
   headerMode: 'none',
+  initialRouteParams: {},
 });

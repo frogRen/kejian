@@ -1,5 +1,7 @@
 /**
  * 存储
+ *
+ * @author renzhenguo<435328801@qq.com>
  */
 import { AsyncStorage } from 'react-native';
 

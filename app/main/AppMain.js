@@ -1,5 +1,7 @@
 /**
  * app主界面
+ *
+ * @author renzhenguo<435328801@qq.com>
  */
 import React from 'react';
 import { Image, Text, View } from 'react-native';

@@ -5,32 +5,48 @@
  */
 import React from 'react';
 import { SafeAreaView } from 'react-navigation';
-import {
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
+import { StyleSheet, Text, Image, TouchableOpacity, FlatList } from 'react-native';
+import Toast, { DURATION } from 'react-native-easy-toast';
 import Request from '../resource/function/Request';
+import Storage from '../resource/function/Storage';
+import Config from './Config';
 
 export default class InitTopic extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { topics: []};
+    this.state = { change: true };
+
+    this.topics = [];
+    this.stopicNum = 0;
   }
 
+  // 加载数据
   componentDidMount() {
     Request.post('/api/topic/recommend').then( res => {
-      this.setState({ topics: res.list });
+      this.topics = res.list;
+      this.setState({ change: true });
     }).catch( err => {
+      this.refs.toast.show(err.message, 2000);
     });
   }
 
   render() {
+    let button =
+    <TouchableOpacity
+      style={ [styles.buttonView, (this.stopicNum >= 4) && styles.buttonViewS] }
+      onPress={ () => this._topicSelect() }
+    >
+      <Text style={ styles.buttonText } >
+      我选好了 { (this.stopicNum < 4) && '(' + this.stopicNum + '/4)' }
+      </Text>
+    </TouchableOpacity>
+    if (this.topics.length === 0) {
+      button = '';
+    }
+
     return (
-      <SafeAreaView style={{ flex: 1 }} >
+      <SafeAreaView style={ styles.view } >
         <Text style={ styles.title } >
           请关注你感兴趣的主题
         </Text>
@@ -40,67 +56,134 @@ export default class InitTopic extends React.Component {
 
         <FlatList
           numColumns={ 3 }
-          initialNumToRender={ 60 }
+          initialNumToRender={ 90 }
           style={ styles.topicList }
           columnWrapperStyle={ styles.topicWrapper }
-          data={ this.state.topics }
+          data={ this.topics }
           renderItem={ ({item}) => this._topicItem(item) }
           keyExtractor={ (item) => { return item.id; }}
         />
 
+        { button }
+        <Toast ref="toast" position="center" opacity={0.5} />
       </SafeAreaView>
     );
   }
 
   // 处理单个主题站的显示
   _topicItem(item) {
+    let select = '';
+    if (item.select) {
+      select = <Image
+        source={require('../resource/image/main_topic_s.png')}
+        style={ styles.topicItemImageS }
+      />
+    }
+
     return <SafeAreaView style={ styles.topicItem }>
-      <TouchableOpacity>
+      <TouchableOpacity activeOpacity={ 1 } onPress={ () => this._topicClick(item) }>
         <Image
           source={{ uri: item.topicIcon }} 
           style={ styles.topicItemImage }
         />
+        { select }
         <Text style={ styles.topicItemText } >{ item.topicName }</Text>
       </TouchableOpacity>
     </SafeAreaView>
   }
+
+  // 处理单个主题站点击
+  _topicClick(item) {
+    let topics = [];
+    this.topics.forEach( data => {
+      if (data.id === item.id) {
+        data.select = !data.select;
+        this.stopicNum = (data.select) ?
+          this.stopicNum + 1 :
+          this.stopicNum - 1;
+      }
+      topics.push(data);
+    });
+
+    this.topics = topics;
+    this.setState({ change: true });
+  }
+
+  // 处理选择完成
+  _topicSelect() {
+    if (this.stopicNum < 4) {
+      return ;
+    }
+
+    let stopic = {};
+    this.topics.forEach( data => {
+      if (data.select) {
+        stopic[data.id] = {'topicName': data.topicName}
+      }
+    });
+
+    this.props.navigation.navigate('appMain', { stopic: stopic });
+    Storage.set(Config.main.stopicKey, stopic);
+  }
 }
 
 const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
   title: {
     color: '#333333',
     fontSize: 21,
-    textAlign: 'center',
     marginTop: 50,
   },
   desc: {
     color: '#a6abb2',
     fontSize: 12,
-    textAlign: 'center',
     marginTop: 10,
   },
   topicList: {
     marginTop: 30,
   },
   topicWrapper: {
-    justifyContent: 'center',
-    paddingBottom: 18,
+    height: 131,
   },
   topicItem: {
     width: 80,
     marginLeft: 11,
     marginRight: 11,
-    height: 119,
   },
   topicItemImage: {
     width: 80,
     height: 80,
     borderRadius: 6,
   },
+  topicItemImageS: {
+    width: 80,
+    height: 80,
+    borderRadius: 6,
+    marginTop: -80,
+  },
   topicItemText: {
     color: '#2c2c2c',
     textAlign: 'center',
     fontSize: 12,
     marginTop: 6,
+  },
+  buttonView: {
+    width: 324,
+    height: 42,
+    borderRadius: 8,
+    marginBottom: 16,
+    backgroundColor: '#dcdee1',
+    justifyContent: 'center',
+  },
+  buttonViewS: {
+    backgroundColor: '#ffdc50',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
