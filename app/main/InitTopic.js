@@ -1,5 +1,7 @@
 /**
  * 启动时选择主题站
+ *
+ * @author renzhenguo<435328801@qq.com>
  */
 import React from 'react';
 import { SafeAreaView } from 'react-navigation';
@@ -22,6 +24,7 @@ export default class InitTopic extends React.Component {
   componentDidMount() {
     Request.post('/api/topic/recommend').then( res => {
       this.setState({ topics: res.list });
+    }).catch( err => {
     });
   }
 
@@ -41,7 +44,7 @@ export default class InitTopic extends React.Component {
           style={ styles.topicList }
           columnWrapperStyle={ styles.topicWrapper }
           data={ this.state.topics }
-          renderItem={ ({item}) => this.topicItem(item) }
+          renderItem={ ({item}) => this._topicItem(item) }
           keyExtractor={ (item) => { return item.id; }}
         />
 
@@ -49,7 +52,8 @@ export default class InitTopic extends React.Component {
     );
   }
 
-  topicItem(item) {
+  // 处理单个主题站的显示
+  _topicItem(item) {
     return <SafeAreaView style={ styles.topicItem }>
       <TouchableOpacity>
         <Image

@@ -15,35 +15,40 @@ export default {
    * @param string url 请求地址,不带前缀的
    * @param map data 请求参数
    * @param map options 其他网络配置参数
+   * @return Promise
    */
-  post (url, data = {}, options = {}) {
+  post: async function (url, data = {}, options = {}) {
 
+    // 处理参数
     options.baseURL = this._newsApi;
     options.params = this._cquery();
     options.timeout = options.timeout || 5000;
-
     data = this._query(data);
 
-    return new Promise( (resolve, reject) => {
-      axios.post(url, data, options).then( res => {
-        res = this._response(res);
-        resolve(res);
-      }).catch(reject);
-    });
+    // 处理请求返回
+    let res = {};
+    try {
+      res = await axios.post(url, data, options);
+      return this._response(res);
+    } catch (err) {
+      this._throw(res, err);
+    }
   },
+  get: async function (url, data = {}, options = {}) {
 
-  get (url, data = {}, options = {}) {
-
+    // 处理参数
     options.baseURL = this._newsApi;
     options.params = this._cquery(data);
     options.timeout = options.timeout || 5000;
 
-    return new Promise( (resolve, reject) => {
-      axios.get(url, options).then( res => {
-        res = this._response(res);
-        resolve(res);
-      }).catch(reject);
-    });
+    // 处理请求返回
+    let res = {};
+    try {
+      res = await axios.post(url, data, options);
+      return this._response(res);
+    } catch (err) {
+      this._throw(res, err);
+    }
   },
 
   /**
@@ -51,13 +56,22 @@ export default {
    */
   _response (data) {
     data = data.data;
-    if (typeof data !== 'object') {
-      throw '网络请求失败,请检查网络连接';
-    }
-    if (data.code === 200) {
+
+    if (typeof data === 'object' && data.code === 200) {
       return data.data;
     }
-    throw data.message || '服务器异常,请稍后再试';
+
+    throw (typeof data === 'object') ? data : {};
+  },
+  /**
+   * 处理错误返回信息
+   */
+  _throw (res, err) {
+    throw {
+      'status': res.status,
+      'code': err.code || 500,
+      'message': err.message || '网络请求失败,请检查网络连接',
+    }
   },
 
   /**
@@ -71,7 +85,6 @@ export default {
     obj.from = 'ios1.0';
     return obj;
   },
-
   /**
    * 请求参数处理
    */

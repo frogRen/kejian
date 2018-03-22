@@ -13,12 +13,11 @@ export default class StartPage extends React.Component {
 
   // 根据是否选择主题站进行跳转
   componentDidMount() {
-    let name = 'initTopic';
     Storage.get('main_topic').then(data => {
-      if ((data || []).length > 1) {
-        name = 'appMain';
-      }
-      this.timer = setTimeout(() => {
+      data = data || [];
+      let name = (data.length > 1) ? 'appMain' : 'initTopic';
+
+      this.timer = setTimeout( () => {
         this.props.navigation.navigate(name);
       }, 2000)
     });
