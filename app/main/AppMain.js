@@ -4,18 +4,15 @@
  * @author renzhenguo<435328801@qq.com>
  */
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
-// 首页
+// 首页/发现/我的模块
 import HomeMain from '../home/Main';
-
-// 发现
 import TopicMain from '../topic/Main';
-
-// 我的
 import MeMain from '../me/Main';
 
+// Tab导航
 export default TabNavigator({
   Home: {
     screen: HomeMain,
@@ -57,12 +54,13 @@ export default TabNavigator({
     }),
   },
 }, {
-  tabBarPosition: 'bottom',
-  swipeEnabled: false,
-  animationEnabled: true,
-  tabBarOptions: {
-    activeTintColor: '#212d3e', //'#ffdc50',
-    inactiveTintColor: '#212d3e',
+  tabBarPosition: 'bottom',     // 标签栏的位置，可以是'top'或'bottom'
+  swipeEnabled: false,          // 是否允许在标签之间滑动
+  animationEnabled: true,       // 改变标签时是否进行动画制作
+  removeClippedSubviews: true,  // 通过释放非活动选项卡使用的资源来减少内存使用量的优化
+  tabBarOptions: {              // 配置标签栏
+    activeTintColor: '#212d3e',    // '#ffdc50', 活动选项卡的标签和图标颜色
+    inactiveTintColor: '#212d3e',  // 非活动选项卡的标签和图标颜色
     style: {
       height: 48,
       borderTopWidth: 1,

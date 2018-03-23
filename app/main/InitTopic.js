@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import { SafeAreaView } from 'react-navigation';
-import { StyleSheet, Text, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, Image, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import Request from '../resource/function/Request';
 import Storage from '../resource/function/Storage';
@@ -127,6 +127,7 @@ export default class InitTopic extends React.Component {
   }
 }
 
+const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   view: {
     flex: 1,
@@ -134,25 +135,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: '#333333',
-    fontSize: 21,
+    color: '#4c5664',
+    fontSize: 26,
     marginTop: 50,
   },
   desc: {
     color: '#a6abb2',
-    fontSize: 12,
-    marginTop: 10,
+    fontSize: 14,
+    marginTop: 12,
   },
   topicList: {
-    marginTop: 30,
+    marginTop: 28,
   },
   topicWrapper: {
-    height: 131,
+    height: 130,
   },
   topicItem: {
     width: 80,
-    marginLeft: 11,
-    marginRight: 11,
+    marginLeft: 15,
+    marginRight: 15,
   },
   topicItemImage: {
     width: 80,
@@ -167,17 +168,17 @@ const styles = StyleSheet.create({
   },
   topicItemText: {
     color: '#2c2c2c',
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 12,
-    marginTop: 6,
+    lineHeight: 18,
+    marginTop: 5,
   },
   buttonView: {
-    width: 324,
+    width: width - 32,
     height: 42,
-    borderRadius: 8,
+    borderRadius: 6,
     marginBottom: 16,
     backgroundColor: '#dcdee1',
-    justifyContent: 'center',
   },
   buttonViewS: {
     backgroundColor: '#ffdc50',
@@ -185,5 +186,6 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     fontSize: 16,
+    lineHeight: 42,
   },
 });

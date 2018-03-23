@@ -8,11 +8,12 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
-// 导航组件
+// 启动页/选主题站/主模块
 import StartPage from './StartPage';
 import InitTopic from './InitTopic';
 import AppMain from './AppMain';
 
+// 导航组件
 export default StackNavigator ({
   appMain: { screen: AppMain },
   startPage: { screen: StartPage },
