@@ -41,9 +41,7 @@ export default class InitTopic extends React.Component {
       我选好了 { (this.stopicNum < 4) && '(' + this.stopicNum + '/4)' }
       </Text>
     </TouchableOpacity>
-    if (this.topics.length === 0) {
-      button = '';
-    }
+    if (this.topics.length === 0) { button = null; }
 
     return (
       <SafeAreaView style={ styles.view } >
@@ -72,13 +70,11 @@ export default class InitTopic extends React.Component {
 
   // 处理单个主题站的显示
   _topicItem(item) {
-    let select = '';
-    if (item.select) {
-      select = <Image
-        source={require('../resource/image/main_topic_s.png')}
-        style={ styles.topicItemImageS }
-      />
-    }
+    let select = <Image
+      source={require('../resource/image/main_topic_s.png')}
+      style={ styles.topicItemImageS }
+    />
+    if (!item.select) { select = null; }
 
     return <SafeAreaView style={ styles.topicItem }>
       <TouchableOpacity activeOpacity={ 1 } onPress={ () => this._topicClick(item) }>

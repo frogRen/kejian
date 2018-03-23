@@ -16,10 +16,10 @@ import AppMain from './AppMain';
 // 导航组件
 export default StackNavigator ({
   mainApp: { screen: AppMain },
-  mainPage: { screen: StartPage },
+  mainStart: { screen: StartPage },
   mainTopic: { screen: InitTopic },
 }, {
-  initialRouteName: 'mainPage',
+  initialRouteName: 'mainStart',
   headerMode: 'none',
   initialRouteParams: {},
 });
