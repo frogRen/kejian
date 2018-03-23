@@ -14,7 +14,7 @@ import MeMain from '../me/Main';
 
 // Tab导航
 export default TabNavigator({
-  Home: {
+  homeMain: {
     screen: HomeMain,
     navigationOptions: ({ navigation }) => ({
       title: '首页',
@@ -27,7 +27,7 @@ export default TabNavigator({
       },
     }),
   },
-  Topic: {
+  topicMain: {
     screen: TopicMain,
     navigationOptions: ({ navigation }) => ({
       title: '发现',
@@ -40,7 +40,7 @@ export default TabNavigator({
       },
     }),
   },
-  Me: {
+  meMain: {
     screen: MeMain,
     navigationOptions: ({ navigation }) => ({
       title: '我的',

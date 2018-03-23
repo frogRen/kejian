@@ -122,7 +122,7 @@ export default class InitTopic extends React.Component {
       }
     });
 
-    this.props.navigation.navigate('appMain', { stopic: stopic });
+    this.props.navigation.navigate('mainApp', { stopic: stopic });
     Storage.set(Config.main.stopicKey, stopic);
   }
 }

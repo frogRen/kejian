@@ -17,7 +17,7 @@ export default class StartPage extends React.Component {
     Storage
       .get(Config.main.stopicKey)
       .then(data => {
-        let name = (data) ? 'appMain' : 'initTopic';
+        let name = (data) ? 'mainApp' : 'mainTopic';
 
         this.timer = setTimeout( () => {
           this.props.navigation.navigate(name, { stopic: data });
