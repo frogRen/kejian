@@ -12,7 +12,7 @@ export default {
 
   // 网络请求
   network: {
-    //newsApi: 'http://app-news.router.test.imoxiu.cn',
-    newsApi: 'https://news.moxiu.com',
+    newsApi: 'http://app-news.router.test.imoxiu.cn',
+    //newsApi: 'https://news.moxiu.com',
   },
 }
