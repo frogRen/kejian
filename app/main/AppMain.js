@@ -61,7 +61,7 @@ export default TabNavigator({
   removeClippedSubviews: true,  // 通过释放非活动选项卡使用的资源来减少内存使用量的优化
   tabBarOptions: {              // 配置标签栏
     activeTintColor: '#212d3e',    // '#ffdc50', 活动选项卡的标签和图标颜色
-    inactiveTintColor: '#999',  // 非活动选项卡的标签和图标颜色
+    inactiveTintColor: '#999',     // 非活动选项卡的标签和图标颜色
     style: {
       height: 48,
       borderTopWidth: 1,

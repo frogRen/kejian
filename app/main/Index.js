@@ -14,10 +14,22 @@ import InitTopic from './InitTopic';
 import AppMain from './AppMain';
 
 // 导航组件
+const deOptions = {
+  gesturesEnabled: false,
+};
 export default StackNavigator ({
-  mainApp: { screen: AppMain },
-  mainStart: { screen: StartPage },
-  mainTopic: { screen: InitTopic },
+  mainApp: {
+    screen: AppMain,
+    navigationOptions: deOptions,
+  },
+  mainStart: {
+    screen: StartPage,
+    navigationOptions: deOptions,
+  },
+  mainTopic: {
+    screen: InitTopic,
+    navigationOptions: deOptions,
+  },
 }, {
   initialRouteName: 'mainStart',
   headerMode: 'none',

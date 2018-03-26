@@ -2,7 +2,7 @@
  * 首页主界面
  */
 import React from 'react';
-import { Image } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { SafeAreaView, TabNavigator, TabBarBottom } from 'react-navigation';
 
 // 首页/发现/我的模块
@@ -15,30 +15,14 @@ const Tab = TabNavigator({
     screen: Follow,
     navigationOptions: ({ navigation }) => ({
       title: '关注',
-      tabBarIcon: ({ focused, tintColor }) => {
-        if (!focused) {
-          return null;
-        }
-        return <Image
-          source={require('../resource/image/public_select_bg.png')}
-          style={{ width: 28, height: 28, marginTop: 40, marginLeft: 22 }}
-        />
-      },
+      tabBarIcon: ({ focused }) => tabIcon(focused),
     }),
   },
   homeHot: {
     screen: Hot,
     navigationOptions: ({ navigation }) => ({
       title: '热门',
-      tabBarIcon: ({ focused, tintColor }) => {
-        if (!focused) {
-          return null;
-        }
-        return <Image
-          source={require('../resource/image/public_select_bg.png')}
-          style={{ width: 28, height: 28, marginTop: 40, marginLeft: 22 }}
-        />
-      },
+      tabBarIcon: ({ focused }) => tabIcon(focused),
     }),
   },
 }, {
@@ -52,26 +36,45 @@ const Tab = TabNavigator({
     activeTintColor: '#000',    // ffdc50, 活动选项卡的标签和图标颜色
     inactiveTintColor: '#666',  // 非活动选项卡的标签和图标颜色
     style: {
-      width: 160,
+      width: 120,
       height: 28,
+      marginBottom: 28,
       borderTopColor: '#fff',
       backgroundColor: '#fff',
     },
-    tabStyle: {
-    },
     labelStyle: {
-      fontSize: 20,
-      fontWeight: 'bold',
+      fontSize: 18,
     },
   },
 });
 
+function tabIcon (focused) {
+  if (!focused) { return null; }
+  return <Image
+    source={require('../resource/image/public_select_bg.png')}
+    style={ styles.tabIcon }
+  />
+}
+
 export default class HomeMain extends React.Component {
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', }} >
+      <SafeAreaView style={ styles.content } >
         <Tab />
       </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  tabIcon: {
+    width: 28,
+    height: 28,
+    marginTop: 40,
+    marginLeft: 20,
+  },
+});
