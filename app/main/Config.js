@@ -12,6 +12,7 @@ export default {
 
   // 网络请求
   network: {
+    newsKey: '9229fe616a964e0b0d64d818c20e94b631ec28f9',
     //newsApi: 'http://app-news.router.test.imoxiu.cn',
     newsApi: 'https://news.moxiu.com',
   },

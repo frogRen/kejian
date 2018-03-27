@@ -83,21 +83,20 @@ export default {
     return obj;
   },
   // 处理签名参数
-  _sign (obj) {
-    let params = [];
-    Object.keys(obj).sort().forEach( (key) => {
-      params.push(key + '=' + obj[key]);
+  _sign (obj, params = []) {
+    Object.keys(obj).sort().forEach( (item) => {
+      params.push(item + '=' + encodeURIComponent(obj[item]));
     });
     params = params.join('&');
 
     return Base64.stringify(HmacSHA1(params, Config.network.newsKey));
   },
   // 请求参数格式处理
-  _query (obj, arr = []) {
+  _query (obj, params = []) {
     for (let item in obj) {
-      arr.push(item + '=' + encodeURIComponent(obj[item]));
+      params.push(item + '=' + encodeURIComponent(obj[item]));
     }
-    return arr.join('&');
+    return params.join('&');
   },
 
 }
