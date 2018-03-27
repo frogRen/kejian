@@ -34,7 +34,7 @@ const Tab = TabNavigator({
   removeClippedSubviews: false, // 通过释放非活动选项卡使用的资源来减少内存使用量的优化
   tabBarOptions: {              // 配置标签栏
     activeTintColor: '#000',    // ffdc50, 活动选项卡的标签和图标颜色
-    inactiveTintColor: '#666',  // 非活动选项卡的标签和图标颜色
+    inactiveTintColor: '#999',  // 非活动选项卡的标签和图标颜色
     style: {
       width: 120,
       height: 28,

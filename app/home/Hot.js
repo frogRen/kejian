@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-navigation';
 import ListView from './ListView';
 import Request from '../resource/function/Request';
 
-export default class HomeMain extends React.Component {
+export default class HomeHot extends React.Component {
   constructor(props) {
     super(props);
     this.state = { change: true };

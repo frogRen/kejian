@@ -123,6 +123,7 @@ export default class InitTopic extends React.Component {
   }
 }
 
+// 样式
 const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   view: {

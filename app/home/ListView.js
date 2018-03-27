@@ -6,6 +6,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import FormatDate from '../resource/function/FormatDate';
+import ListContentView from './ListContentView';
 
 export default class ListView extends React.PureComponent {
   render() {
@@ -14,20 +15,19 @@ export default class ListView extends React.PureComponent {
     return (
       <View style={ styles.view }>
 
-        { this._getHeader() }
+        { this._getHeader(data) }
 
         {/* 内容部分 */}
-        { (data.content.title) ? <Text>{ data.content.title }</Text> : null }
+        <ListContentView data={data} />
 
-        { this._getFooter() }
+        { this._getFooter(data) }
 
       </View>
     );
   }
 
   // 头部信息
-  _getHeader () {
-    const data = this.props.data;
+  _getHeader (data) {
     return <View style={ styles.headerView }>
       <Image
         source={{ uri: data.topicIcon }}
@@ -45,8 +45,7 @@ export default class ListView extends React.PureComponent {
   }
 
   // 底部
-  _getFooter () {
-    const data = this.props.data;
+  _getFooter (data) {
     return <View style={ styles.footerView }>
       <Image
         source={require('../resource/image/home_card_like_n.png')}
@@ -86,15 +85,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 14,
     color: '#81b7ec',
+    marginBottom: 5,
   },
   headerDesc: {
     fontSize: 10,
-    marginTop: 5,
-    color: '#4d4d4d',
-  },
-  contentTitle: {
-    fontSize: 16,
-    color: '#cccccc',
+    color: '#b2b2b2',
   },
   footerView: {
     flexDirection: 'row',
@@ -114,7 +109,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 12,
-    color: '#666666',
+    color: '#999',
     width: 60,
   },
 });
