@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import { StyleSheet, Dimensions, View, Image, Text } from 'react-native';
+import Video from 'react-native-video';
 
 export default class CardContentView extends React.PureComponent {
 
@@ -87,7 +88,11 @@ export default class CardContentView extends React.PureComponent {
   _getVideo (content) {
     return <View>
       <Text style={ styles.textTitle }> { content.desc } </Text>
-      <Text style={ styles.errorDesc }> [暂不支持播放视频] </Text>
+      <Video
+        source={{uri: content.video.url}}
+        style={ styles.videoVideo }
+        rate={0}
+      />
     </View>
   }
 
@@ -176,6 +181,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     color: '#fff',
     fontSize: 20,
+  },
+  videoVideo: {
+    width: '100%',
+    height: 260,
+    backgroundColor: '#000',
   },
   errorDesc: {
     color: '#b2b2b2',
