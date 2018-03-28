@@ -6,7 +6,7 @@
 import React from 'react';
 import { StyleSheet, FlatList, Text } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import ListView from './ListView';
+import CardView from './CardView';
 import Request from '../resource/function/Request';
 
 export default class HomeHot extends React.Component {
@@ -20,11 +20,9 @@ export default class HomeHot extends React.Component {
   // 加载数据
   componentDidMount() {
     Request.post('v2/medium/hot').then( res => {
-      console.log(res);
       this.contents = res.content;
       this.setState({ change: true });
     }).catch( err => {
-      console.log(err);
     });
   }
 
@@ -36,7 +34,7 @@ export default class HomeHot extends React.Component {
 
         <FlatList
           data={ this.contents }
-          renderItem={ ({item}) => <ListView data={item} /> }
+          renderItem={ ({item}) => <CardView data={item} /> }
           keyExtractor={ (item) => { return item.id; }}
           ItemSeparatorComponent={ (highlighted) => spliter }
         />
@@ -47,7 +45,7 @@ export default class HomeHot extends React.Component {
 
 const styles = StyleSheet.create({
   spliter: {
-    height: 12,
+    height: 10,
     backgroundColor: '#f7f7f7',
   },
 });

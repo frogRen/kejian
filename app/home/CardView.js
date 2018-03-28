@@ -1,24 +1,24 @@
 /**
- * 列表展示view
+ * 列表卡展示view
  *
  * @author renzhenguo<435328801@qq.com>
  */
 import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import FormatDate from '../resource/function/FormatDate';
-import ListContentView from './ListContentView';
+import CardContentView from './CardContentView';
 
-export default class ListView extends React.PureComponent {
+export default class CardView extends React.PureComponent {
   render() {
     const data = this.props.data;
 
     return (
-      <View style={ styles.view }>
+      <View style={ styles.cardView }>
 
         { this._getHeader(data) }
 
         {/* 内容部分 */}
-        <ListContentView data={data} />
+        <CardContentView data={data} />
 
         { this._getFooter(data) }
 
@@ -40,6 +40,10 @@ export default class ListView extends React.PureComponent {
         <Text style={ styles.headerDesc}>
           { FormatDate.fromNow(data.ctime) }
         </Text>
+      </View>
+      <View style={ styles.headerFollow }>
+        <Text style={ styles.headerFollowIcon }>+</Text>
+        <Text style={ styles.headerFollowText }>关注</Text>
       </View>
     </View>
   }
@@ -69,40 +73,65 @@ export default class ListView extends React.PureComponent {
 
 // 样式
 const styles = StyleSheet.create({
-  view: {
+  cardView: {
     padding: 15,
   },
   headerView: {
     flexDirection: 'row',
-    paddingBottom: 15,
+    height: 32,
+    marginBottom: 16,
   },
   headerIcon: {
     width: 32,
     height: 32,
     borderRadius: 5,
-    marginRight: 10,
+    marginRight: 8,
   },
   headerTitle: {
     fontSize: 14,
     color: '#81b7ec',
-    marginBottom: 5,
+    marginBottom: 6,
   },
   headerDesc: {
     fontSize: 10,
     color: '#b2b2b2',
   },
-  footerView: {
+  headerFollow: {
+    width: 46,
+    height: 24,
+    position: 'absolute',
+    right: 0,
+    borderWidth: 1,
+    borderColor: '#b8bcc2',
+    borderRadius: 5,
     flexDirection: 'row',
-    paddingTop: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerFollowIcon: {
+    fontSize: 16,
+    color: '#b2b2b2',
+    marginTop: -2,
+    marginRight: 4,
+  },
+  headerFollowText: {
+    fontSize: 10,
+    color: '#b2b2b2',
+  },
+  footerView: {
+    height: 44,
+    marginBottom: -15,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   footerIcon: {
-    width: 15,
-    height: 15,
-    marginRight: 5,
+    width: 16,
+    height: 16,
+    marginRight: 8,
   },
   footerShare: {
-    width: 15,
-    height: 15,
+    width: 16,
+    height: 16,
     position: 'absolute',
     right: 0,
     top: 15,
