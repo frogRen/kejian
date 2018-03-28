@@ -74,7 +74,8 @@ export default class CardView extends React.PureComponent {
 // 样式
 const styles = StyleSheet.create({
   cardView: {
-    padding: 15,
+    paddingHorizontal: '5%',
+    paddingVertical: 15,
   },
   headerView: {
     flexDirection: 'row',

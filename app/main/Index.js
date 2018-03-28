@@ -31,7 +31,7 @@ export default StackNavigator ({
     navigationOptions: deOptions,
   },
 }, {
-  initialRouteName: 'mainStart',
+  initialRouteName: 'mainApp',
   headerMode: 'none',
   initialRouteParams: {},
 });

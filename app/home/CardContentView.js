@@ -4,7 +4,7 @@
  * @author renzhenguo<435328801@qq.com>
  */
 import React from 'react';
-import { StyleSheet, Dimensions, View, Image, ImageBackground, Text } from 'react-native';
+import { StyleSheet, Dimensions, View, Image, Text } from 'react-native';
 
 export default class CardContentView extends React.PureComponent {
 

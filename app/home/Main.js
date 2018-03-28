@@ -2,12 +2,45 @@
  * 首页主界面
  */
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, Dimensions } from 'react-native';
 import { SafeAreaView, TabNavigator, TabBarBottom } from 'react-navigation';
 
 // 首页/发现/我的模块
 import Hot from './Hot';
 import Follow from './Follow';
+
+export default class HomeMain extends React.Component {
+  render() {
+    return (
+      <SafeAreaView style={ styles.content } >
+        <Tab />
+      </SafeAreaView>
+    );
+  }
+}
+
+// 样式
+const { width, height } = Dimensions.get('window');
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  tabBar: {
+    width: 120,
+    height: 28,
+    paddingLeft: 14,
+    marginBottom: 28,
+    borderTopColor: '#fff',
+    backgroundColor: '#fff',
+  },
+  tabIcon: {
+    width: 28,
+    height: 28,
+    marginTop: 40,
+    marginLeft: 20,
+  },
+});
 
 // Tab导航
 const Tab = TabNavigator({
@@ -35,13 +68,7 @@ const Tab = TabNavigator({
   tabBarOptions: {              // 配置标签栏
     activeTintColor: '#000',    // ffdc50, 活动选项卡的标签和图标颜色
     inactiveTintColor: '#999',  // 非活动选项卡的标签和图标颜色
-    style: {
-      width: 120,
-      height: 28,
-      marginBottom: 28,
-      borderTopColor: '#fff',
-      backgroundColor: '#fff',
-    },
+    style: styles.tabBar,
     labelStyle: {
       fontSize: 18,
     },
@@ -56,25 +83,3 @@ function tabIcon (focused) {
   />
 }
 
-export default class HomeMain extends React.Component {
-  render() {
-    return (
-      <SafeAreaView style={ styles.content } >
-        <Tab />
-      </SafeAreaView>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  tabIcon: {
-    width: 28,
-    height: 28,
-    marginTop: 40,
-    marginLeft: 20,
-  },
-});
